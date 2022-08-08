@@ -1,0 +1,37 @@
+version: '3.1'
+
+services:
+  mongod:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secretpass
+    deploy:
+      replicas: 1
+    volumes:
+      - /home/data/mongod:/home/data
+    ports:
+      - 27017:27017
+  
+  graph-gateway:
+    build:
+      context: ./../graph-gateway
+      dockerfile: ./../graph-gateway/graph-gateway.dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    deploy:
+      mode: replicated
+      replicas: 1
+  
+  message-service:
+    build:
+      context: ./../message-service
+      dockerfile: ./../message-service/message-service.dockerfile
+    restart: always
+    ports:
+      - "50001:50001"
+    deploy:
+      mode: replicated
+      replicas: 1

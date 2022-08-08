@@ -1,0 +1,10 @@
+type Message {
+  id: ID!
+  data: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+input NewMessage {
+  data: String!
+}

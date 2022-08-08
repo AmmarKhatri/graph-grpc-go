@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package message;
+
+option go_package = "/message";
+
+message Message {
+    string id = 1;
+    string data = 2;
+    string createdAt = 3;
+    string updatedAt = 4;
+}
+
+message MessageRequest {
+    Message msg = 1;
+}
+
+message MessageResponse {
+    Message msg = 1;
+}
+
+service MessageService {
+    rpc SaveMessage(MessageRequest) returns (MessageResponse);
+}
